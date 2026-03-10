@@ -43,11 +43,11 @@ The `amount` field is an integer representing the smallest unit of the currency 
 
 Payments can be in one of three states:
 
-- **AUTHORIZED** — payment was approved by the bank.
-- **DECLINED** — payment was rejected by the bank (insufficient funds, stolen card, etc.).
-- **REJECTED** — The gateway rejected the request before it reached the bank (validation failure). 
+- **Authorized** — payment was approved by the bank.
+- **Declined** — payment was rejected by the bank (insufficient funds, stolen card, etc.).
+- **Rejected** — The gateway rejected the request before it reached the bank (validation failure). 
 
-This distinction lets merchants differentiate between *their own* request errors (`REJECTED`) and bank-side decisions (`AUTHORIZED` / `DECLINED`).
+This distinction lets merchants differentiate between *their own* request errors (`Rejected`) and bank-side decisions (`Authorized` / `Declined`).
 
 ### Declarative Validation with Custom Constraints
 
@@ -76,8 +76,8 @@ The `BankClient` translates low-level HTTP and connectivity exceptions into a do
 
 The `GlobalExceptionHandler` maps every expected failure to a predictable response shape:
 
-- Validation errors → `400` with `{ status: "REJECTED", errors: [...] }`
-- Malformed JSON → `400` with `{ status: "REJECTED", errors: ["Malformed request body"] }`
+- Validation errors → `400` with `{ status: "Rejected", errors: [...] }`
+- Malformed JSON → `400` with `{ status: "Rejected", errors: ["Malformed request body"] }`
 - Payment not found → `404` with `{ error: "..." }`
 - Bank unreachable → `502` with `{ error: "..." }`
 
@@ -137,7 +137,7 @@ src/main/java/com/checkout/gateway/
 │   └── PaymentNotFoundException.java
 ├── model/
 │   ├── Payment.java                 # domain entity
-│   └── PaymentStatus.java           # AUTHORIZED, DECLINED, REJECTED
+│   └── PaymentStatus.java           # Authorized, Declined, Rejected
 ├── repository/
 │   ├── InMemoryPaymentRepository.java
 │   └── PaymentRepository.java       # storage interface
