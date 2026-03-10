@@ -50,7 +50,7 @@ class PaymentControllerIntegrationTest {
                         .content(jsonMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", notNullValue()))
-                .andExpect(jsonPath("$.status", is("AUTHORIZED")))
+                .andExpect(jsonPath("$.status", is("Authorized")))
                 .andExpect(jsonPath("$.lastFourCardDigits", is("8877")))
                 .andExpect(jsonPath("$.expiryMonth", is(4)))
                 .andExpect(jsonPath("$.expiryYear", is(2030)))
@@ -70,7 +70,7 @@ class PaymentControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status", is("DECLINED")))
+                .andExpect(jsonPath("$.status", is("Declined")))
                 .andExpect(jsonPath("$.lastFourCardDigits", is("8878")));
     }
 
@@ -83,7 +83,7 @@ class PaymentControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.status", is("REJECTED")));
+                .andExpect(jsonPath("$.status", is("Rejected")));
 
         verify(bankClient, never()).sendPayment(any());
     }
@@ -122,7 +122,7 @@ class PaymentControllerIntegrationTest {
         mockMvc.perform(get("/api/payments/" + paymentId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(paymentId)))
-                .andExpect(jsonPath("$.status", is("AUTHORIZED")))
+                .andExpect(jsonPath("$.status", is("Authorized")))
                 .andExpect(jsonPath("$.lastFourCardDigits", is("8877")))
                 .andExpect(jsonPath("$.expiryMonth", is(6)))
                 .andExpect(jsonPath("$.expiryYear", is(2029)))
